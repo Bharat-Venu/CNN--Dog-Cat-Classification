@@ -5,14 +5,14 @@ import numpy as np
 import os
 
 app = Flask(__name__)
-model = load_model("model/dog_cat_model.h5")
+model = load_model("model/mobileNet_model.h5")
 
 UPLOAD_FOLDER = "static/uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 def preprocess_image(img_path):
-    img = image.load_img(img_path, target_size=(64, 64))  # change size to your CNN input
+    img = image.load_img(img_path, target_size=(224, 224))  # change size to your CNN input
     img_array = image.img_to_array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
     return img_array
@@ -33,7 +33,7 @@ def index():
 
             result = model.predict(img_array)[0][0]  # probability between 0 and 1
             if result > 0.5:
-                prediction = "Dog"
+                prediction = "Doog"
             else:
                 prediction = "Cat"
 
